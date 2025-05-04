@@ -83,7 +83,6 @@ class FavoritesViewController: UIViewController {
        
         let favoriteIds = UserDefaults.standard.array(forKey: "favoriteIds") as? [Int] ?? []
         
-        // Fetch all products then filter by favorites
         productRepository.fetchProductsWithCompletion { [weak self] products in
             guard let self = self else { return }
             
