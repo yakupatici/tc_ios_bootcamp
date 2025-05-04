@@ -1,0 +1,12 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '13.0'
+
+target 'yakupAtici_bitirmeProjesi' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for yakupAtici_bitirmeProjesi
+  pod 'Alamofire'
+  pod 'Kingfisher'
+
+end 
