@@ -113,11 +113,11 @@ class ProductRepository {
                 switch response.result {
                 case .success(let sepetResponse):
                     if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
-                        print("[fetchCartAPI] Yanıt: \(responseStr)")
+                      
                     }
 
                     guard sepetResponse.success == 1, let hamSepetUrunleri = sepetResponse.urunler_sepeti else {
-                        print("[fetchCartAPI] Başarısız yanıt (success != 1 veya urunler_sepeti yok/boş).")
+                      
                         self.cartItemsSubject.onNext([])
                         return
                     }
@@ -125,14 +125,14 @@ class ProductRepository {
                     print("[fetchCartAPI] Başarılı yanıt ve ürünler alındı: \(hamSepetUrunleri.count) adet.")
                     
                     let gruplanmisListe = self.groupCartItems(items: hamSepetUrunleri)
-                    print("[fetchCartAPI] Gruplama tamamlandı. Sonuç: \(gruplanmisListe.count) benzersiz ürün.")
+                    
                     
                     self.cartItemsSubject.onNext(gruplanmisListe)
                     
                 case .failure(let error):
-                    print("[fetchCartAPI] İstek veya Decode hatası: \(error.localizedDescription)")
+                   
                     if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
-                        print("[fetchCartAPI] Hata anındaki yanıt verisi: \(responseStr)")
+                        
                     }
                     self.cartItemsSubject.onNext([])
                 }
@@ -181,15 +181,15 @@ class ProductRepository {
                 case .success(let data):
                     if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                        let success = json["success"] as? Int, success == 1 {
-                        print("[addToCartAPI] Başarılı!")
+                        
                         completion(true)
                         self.fetchCartAPI()
                     } else {
-                        print("[addToCartAPI] Başarısız veya yanıt anlaşılamadı.")
+                        
                         completion(false)
                     }
                 case .failure(let error):
-                    print("[addToCartAPI] Hata: \(error.localizedDescription)")
+                   
                     completion(false)
                 }
             }
@@ -215,23 +215,23 @@ class ProductRepository {
                 
                 
                 if let statusCode = response.response?.statusCode {
-                    print("[removeFromCartAPI] HTTP Status: \(statusCode)")
+                    
                 }
                 
                  if let data = response.data, let responseStr = String(data: data, encoding: .utf8) {
-                     print("[removeFromCartAPI] Yanıt: \(responseStr)")
+                    
                  }
                 
                 switch response.result {
                 case .success(let crudResponse):
               
                     if crudResponse.success == 1 {
-                        print("[removeFromCartAPI] Başarılı! Ürün sepetten silindi.")
+                        print("Başarılı! Ürün sepetten silindi.")
                         completion(true)
                         
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            print("[removeFromCartAPI] API'den sepeti yeniliyorum")
+                            
                             self.fetchCartAPI()
                         }
                     } else {
