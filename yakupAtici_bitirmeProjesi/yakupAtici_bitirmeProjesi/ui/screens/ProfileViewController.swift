@@ -6,9 +6,9 @@
 //
 import UIKit
 
-let trendyolOrangeColor = UIColor.trendyolOrange
+
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+    let trendyolOrangeColor = UIColor.trendyolOrange
     
     private let nameLabel: UILabel = {
         let label = UILabel()
